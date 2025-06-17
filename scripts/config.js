@@ -97,7 +97,7 @@ const AppConfig = (function() {
 
     // 🤖 CONFIGURAÇÕES TELEGRAM
     const TELEGRAM_CONFIG = {
-        botToken: '', // Será configurado via interface
+        botToken: '7877375832:AAElu4kbtqT3pv7eB3gTOS_XBeTUo5w7H0I', // Será configurado via interface
         chatId: '-484881363923:06',
         apiUrl: 'https://api.telegram.org/bot',
         mensagens: {
@@ -136,7 +136,7 @@ const AppConfig = (function() {
 
     // 📝 CONFIGURAÇÕES GOOGLE SHEETS
     const SHEETS_CONFIG = {
-        spreadsheetId: '', // Será configurado
+        spreadsheetId: 'AKfycbyqRwApMZSCets-GbVF83iRr1U861MOIoqCTmtXPz4iMHJcpK0nCUSDSGgHqDh-nucZ', // Será configurado
         ranges: {
             turnoA: 'Turno A - Claudenir!A:M',
             turnoB: 'Turno B - Rogério!A:M',
