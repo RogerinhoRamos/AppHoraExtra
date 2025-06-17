@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Horas Extras</title>
+    
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Main Container -->
+    <div class="container" id="main-container">
+        
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">🕐</span>
+                    Sistema de Horas Extras
+                </h1>
+                <p class="app-subtitle">Gestão Inteligente de Turnos e Escalas</p>
+            </div>
+            
+            <!-- Mode Toggle -->
+            <div class="mode-toggle" id="mode-toggle">
+                <button class="mode-btn active" data-mode="supervisor">
+                    <span class="icon">👔</span>
+                    Supervisor
+                </button>
+                <button class="mode-btn" data-mode="lider">
+                    <span class="icon">👤</span>
+                    Líder
+                </button>
+            </div>
+        </header>
+
+        <!-- Weekly Summary -->
+        <section class="weekly-summary" id="weekly-summary">
+            <div class="week-info">
+                <div class="week-title" id="week-title">Semana 25 • 16-22 Jun 2025</div>
+                <div class="supervisor-info" id="supervisor-info">
+                    <span class="supervisor-current">Supervisor: Claudenir</span>
+                    <span class="supervisor-next">Próxima: Rogério (Semana 26)</span>
+                </div>
+            </div>
+            
+            <div class="hours-progress">
+                <div class="progress-info">
+                    <span>Meta: <span id="meta-total">150h</span></span>
+                    <span>Atual: <span id="horas-atual">0h</span></span>
+                    <span>Restante: <span id="horas-restante">150h</span></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-percentage" id="progress-percentage">0%</div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            
+            <!-- Supervisor Mode Content -->
+            <div class="mode-content supervisor-mode active" id="supervisor-content">
+                
+                <!-- Quick Actions -->
+                <section class="quick-actions">
+                    <button class="action-btn primary" id="btn-configurar-semana">
+                        <span class="icon">⚙️</span>
+                        Configurar Semana
+                    </button>
+                    <button class="action-btn secondary" id="btn-relatorio">
+                        <span class="icon">📊</span>
+                        Relatórios
+                    </button>
+                    <button class="action-btn tertiary" id="btn-historico">
+                        <span class="icon">📋</span>
+                        Histórico
+                    </button>
+                </section>
+
+                <!-- Turnos Grid -->
+                <section class="turnos-grid" id="turnos-grid">
+                    <div class="turno-card turno-manha" id="turno-manha">
+                        <div class="turno-header">
+                            <h2 class="turno-title">
+                                <span class="icon">🌅</span>
+                                Turno Manhã
+                            </h2>
+                            <div class="turno-supervisor" id="supervisor-manha">Claudenir</div>
+                        </div>
+                        
+                        <div class="turno-horarios">
+                            <div class="horario-item">
+                                <span class="dia">Sábado</span>
+                                <span class="horas">13:30 → 16:30 (3h)</span>
+                            </div>
+                            <div class="horario-item">
+                                <span class="dia">Domingo</span>
+                                <span class="horas">05:00 → 12:00 (7h)</span>
+                            </div>
+                        </div>
+
+                        <div class="postos-container" id="postos-manha">
+                            <!-- Postos serão gerados dinamicamente -->
+                        </div>
+
+                        <div class="turno-summary">
+                            <div class="summary-item">
+                                <span>Postos:</span>
+                                <span id="count-postos-manha">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Horas:</span>
+                                <span id="horas-manha">0h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="turno-card turno-tarde" id="turno-tarde">
+                        <div class="turno-header">
+                            <h2 class="turno-title">
+                                <span class="icon">🌆</span>
+                                Turno Tarde
+                            </h2>
+                            <div class="turno-supervisor" id="supervisor-tarde">Rogério</div>
+                        </div>
+                        
+                        <div class="turno-horarios">
+                            <div class="horario-item">
+                                <span class="dia">Segunda-Sexta</span>
+                                <span class="horas">22:00 → 00:30 (2.5h/dia)</span>
+                            </div>
+                            <div class="horario-config">
+                                <label for="dias-semana">Dias:</label>
+                                <select id="dias-semana" class="config-select">
+                                    <option value="0">Nenhum</option>
+                                    <option value="1">1 Dia (2.5h)</option>
+                                    <option value="2">2 Dias (5h)</option>
+                                    <option value="3">3 Dias (7.5h)</option>
+                                    <option value="4">4 Dias (10h)</option>
+                                    <option value="5">5 Dias (12.5h)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="postos-container" id="postos-tarde">
+                            <!-- Postos serão gerados dinamicamente -->
+                        </div>
+
+                        <div class="turno-summary">
+                            <div class="summary-item">
+                                <span>Postos:</span>
+                                <span id="count-postos-tarde">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Horas:</span>
+                                <span id="horas-tarde">0h</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Líder Mode Content -->
+            <div class="mode-content lider-mode" id="lider-content">
+                
+                <!-- Status Overview -->
+                <section class="status-overview">
+                    <div class="status-card pending">
+                        <span class="icon">⏳</span>
+                        <div class="status-info">
+                            <span class="count" id="pendentes-count">0</span>
+                            <span class="label">Pendentes</span>
+                        </div>
+                    </div>
+                    <div class="status-card confirmed">
+                        <span class="icon">✅</span>
+                        <div class="status-info">
+                            <span class="count" id="confirmados-count">0</span>
+                            <span class="label">Confirmados</span>
+                        </div>
+                    </div>
+                    <div class="status-card issues">
+                        <span class="icon">⚠️</span>
+                        <div class="status-info">
+                            <span class="count" id="problemas-count">0</span>
+                            <span class="label">Problemas</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Postos List for Confirmation -->
+                <section class="confirmacao-postos" id="confirmacao-postos">
+                    <!-- Lista de postos para confirmação será gerada dinamicamente -->
+                </section>
+            </div>
+        </main>
+
+        <!-- Actions Footer -->
+        <footer class="actions-footer" id="actions-footer">
+            <div class="actions-group supervisor-actions">
+                <button class="btn btn-primary" id="btn-enviar-telegram">
+                    <span class="icon">📱</span>
+                    Enviar Telegram
+                </button>
+                <button class="btn btn-success" id="btn-salvar">
+                    <span class="icon">💾</span>
+                    Salvar
+                </button>
+                <button class="btn btn-warning" id="btn-limpar">
+                    <span class="icon">🧹</span>
+                    Limpar
+                </button>
+            </div>
+            
+            <div class="actions-group lider-actions hidden">
+                <button class="btn btn-info" id="btn-marcar-todos">
+                    <span class="icon">☑️</span>
+                    Marcar Todos
+                </button>
+                <button class="btn btn-success" id="btn-confirmar-lider">
+                    <span class="icon">✅</span>
+                    Confirmar Seleção
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
+
+    <!-- Core Scripts -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/utils.js"></script>
+    
+    <!-- Feature Scripts -->
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/turnos.js"></script>
+    <script src="scripts/historico.js"></script>
+    
+    <!-- Integration Scripts -->
+    <script src="scripts/integrations/notifications.js"></script>
+    <script src="scripts/integrations/telegram.js"></script>
+    <script src="scripts/integrations/sheets.js"></script>
+    
+    <!-- App Initialization -->
+    <script>
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize modules in sequence
+            AppConfig.init();
+            AppData.init();
+            UIManager.init();
+            TurnosManager.init();
+            NotificationSystem.init();
+            
+            // Load initial data
+            UIManager.renderInitialState();
+            
+            console.log('🚀 Sistema de Horas Extras iniciado com sucesso!');
+        });
+    </script>
+</body>
+</html>
