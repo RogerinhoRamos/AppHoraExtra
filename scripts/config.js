@@ -17,16 +17,16 @@ const AppConfig = (function() {
     // ⏰ CONFIGURAÇÕES DE HORÁRIOS
     const HORARIOS_CONFIG = {
         turnoManha: {
-            normal: { inicio: '06:00', fim: '14:00' },
-            sabado: { inicio: '13:30', fim: '16:30', horas: 3 },
+            normal: { inicio: '05:00', fim: '12:42' },
+            sabado: { inicio: '05:00', fim: '13:30', horas: 8 },
             domingo: { inicio: '05:00', fim: '12:00', horas: 7 },
             extensoes: {
-                ate16h: { fim: '16:00', horasExtras: 2 },
-                ate17h: { fim: '17:00', horasExtras: 3 }
+                ate16h: { fim: '16:00', horasExtras: 3 },
+                ate17h: { fim: '17:00', horasExtras: 4 }
             }
         },
         turnoTarde: {
-            normal: { inicio: '14:00', fim: '22:00' },
+            normal: { inicio: '12:42', fim: '22:00' },
             extensao: { inicio: '22:00', fim: '00:30', horas: 2.5 },
             diasConfig: {
                 1: { dias: 1, totalHoras: 2.5 },
@@ -37,7 +37,7 @@ const AppConfig = (function() {
             }
         },
         feriados: {
-            multiplicador: 1.5,
+            multiplicador: 1.0,
             horasBase: 8,
             tipos: {
                 'nacional': { horas: 8, multiplicador: 2.0 },
@@ -84,7 +84,7 @@ const AppConfig = (function() {
 
     // 📊 CONFIGURAÇÕES DE METAS
     const METAS_CONFIG = {
-        metaSemanalPadrao: 150, // horas
+        metaSemanalPadrao: 700, // horas
         limiteAlerta: 0.8, // 80% da meta
         limiteCritico: 0.95, // 95% da meta
         cores: {
